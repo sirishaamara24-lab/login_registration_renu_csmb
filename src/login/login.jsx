@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://login-registration-backend01.onrender.com';
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false); // State to handle eye toggle
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
