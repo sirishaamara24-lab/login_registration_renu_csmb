@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './dashboard.css';
 
-const API_BASE_URL = 'https://login-registration-backend01.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -89,6 +89,10 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="dashboard-content">
+      <div className="dashboard-welcome-block">
+
+     <h1 className='dashboard-card1' >Welcome to the Member Portal</h1>
+      </div >
         <div className="dashboard-header-block">
           <h1 className="dashboard-title">Member Portal Directory</h1>
           <button onClick={handleLogout} className="logout-btn">Log Out</button>
@@ -98,6 +102,7 @@ const Dashboard = () => {
           <table className="directory-table">
             <thead>
               <tr>
+                <th>Photo</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
@@ -115,6 +120,7 @@ const Dashboard = () => {
                 <tr key={user._id} className={editingId === user._id ? 'row-editing' : ''}>
                   {editingId === user._id ? (
                     <>
+                      <td><span className="photo-placeholder">Editing</span></td>
                       <td><input type="text" name="firstName" value={editFormData.firstName} onChange={handleEditFormChange} className="inline-input" /></td>
                       <td><input type="text" name="lastName" value={editFormData.lastName} onChange={handleEditFormChange} className="inline-input" /></td>
                       <td><input type="email" name="email" value={editFormData.email} onChange={handleEditFormChange} className="inline-input" /></td>
@@ -155,6 +161,13 @@ const Dashboard = () => {
                     </>
                   ) : (
                     <>
+                      <td>
+                        {user.photo ? (
+                          <img src={user.photo} alt={`${user.firstName} ${user.lastName}`} className="user-photo" />
+                        ) : (
+                          <span className="photo-placeholder">No photo</span>
+                        )}
+                      </td>
                       <td>{user.firstName}</td>
                       <td>{user.lastName}</td>
                       <td>{user.email}</td>
@@ -176,7 +189,7 @@ const Dashboard = () => {
               ))}
               {users.length === 0 && (
                 <tr>
-                  <td colSpan="10" className="no-data-text">No members registered yet. Fill out the registration form first.</td>
+                  <td colSpan="11" className="no-data-text">No members registered yet. Fill out the registration form first.</td>
                 </tr>
               )}
             </tbody>
