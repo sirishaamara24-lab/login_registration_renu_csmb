@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './registration.css';
 
-const API_BASE_URL = 'https://login-registration-backend01.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,10 +17,12 @@ const Register = () => {
     confirmPassword: '',
     phone: '',
     city: '',
-    country: ''
+    country: '',
+    photo: ''
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [photoPreview, setPhotoPreview] = useState('');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
@@ -43,6 +45,23 @@ const Register = () => {
     } else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setFormData(prev => ({ ...prev, photo: '' }));
+      setPhotoPreview('');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result;
+      setFormData(prev => ({ ...prev, photo: result || '' }));
+      setPhotoPreview(result || '');
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (e) => {
@@ -166,6 +185,12 @@ const Register = () => {
                 </svg>
               </button>
             </div>
+          </div>
+
+          <div className="input-group">
+            <label>Profile Photo</label>
+            <input type="file" accept="image/*" onChange={handlePhotoChange} />
+            {photoPreview && <img src={photoPreview} alt="Preview" className="photo-preview" />}
           </div>
 
           <div className="input-group">
