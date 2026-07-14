@@ -139,3 +139,40 @@
   padding: 40px !important;
   font-size: 15px;
 }
+
+.dashboard-welcome-block {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 24px;
+  border-radius: 12px;
+  background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+.dashboard-card1 {
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.user-photo {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #3b82f6;
+}
+
+.photo-placeholder {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.photo-preview {
+  width: 72px;
+  height: 72px;
+  margin-top: 8px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #3b82f6;
+}
